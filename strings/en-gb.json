@@ -27,5 +27,16 @@
   "user_logged_out": "User <id={user_id}> successfully logged out.",
   "user_not_confirmed": "You have not confirmed registration, please check your email <{}>.",
   "user_error_creating": "Internal server error. Failed to create user.",
-  "user_registered": "Account created successfully, an email with an activation link has been sent to your email address, please check."
+  "user_registered": "Account created successfully, an email with an activation link has been sent to your email address, please check.",
+
+  "image_uploaded": "The image {} is successfully uploaded",
+  "image_illegal_extension": "This type of file: '{}' is not supported",
+  "image_illegal_file_name": "Not allowed name for the image: '{}'",
+  "image_not_found": "The image with name: '{}' is not found",
+  "image_deleted": "The image '{}' is deleted",
+  "image_delete_failed": "Image delete failed!",
+
+  "avatar_delete_failed": "Avatar delete failed!",
+  "avatar_uploaded": "Avatar successfully uploaded",
+  "avatar_not_found": "Avatar not found."
 }
