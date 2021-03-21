@@ -1,5 +1,4 @@
-import os
-
+from dotenv import load_dotenv
 from flask import Flask, jsonify
 from flask_restful import Api
 from flask_jwt_extended import JWTManager
@@ -8,15 +7,15 @@ from marshmallow import ValidationError
 from db import db
 from blacklist import BLACKLIST
 from ma import ma
+from resources.confirmation import Confirmation, ConfirmationByUser
 from resources.item import Item, ItemList
 from resources.store import Store, StoreList
-from resources.user import UserRegister, UserLogin, User, TokenRefresh, UserLogout, UserConfirm
+from resources.user import UserRegister, UserLogin, User, TokenRefresh, UserLogout
 
 app = Flask(__name__)
-app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("DATABASE_URL")
-app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
-app.config["PROPAGATE_EXCEPTIONS"] = True
-app.config['JWT_SECRET_KEY'] = os.environ.get("API_SECRET_KEY")
+load_dotenv(".env", verbose=True)
+app.config.from_object("default_config")
+app.config.from_envvar("APPLICATION_SETTINGS")
 api = Api(app)
 
 
@@ -39,12 +38,13 @@ def check_if_token_in_blacklist(jwt_header, jwt_payload):
     return jwt_payload["jti"] in BLACKLIST
 
 
+api.add_resource(Confirmation, "/user_confirmation/<string:confirmation_id>")
+api.add_resource(ConfirmationByUser, "/confirmation/user/<int:user_id>")
 api.add_resource(Item, "/item/<string:name>")
 api.add_resource(ItemList, "/items")
 api.add_resource(Store, "/store/<string:name>")
 api.add_resource(StoreList, "/stores")
 api.add_resource(UserRegister, "/register")
-api.add_resource(UserConfirm, "/user_confirm/<int:user_id>")
 api.add_resource(User, "/user/<int:user_id>")
 api.add_resource(UserLogin, "/login")
 api.add_resource(TokenRefresh, "/refresh")
