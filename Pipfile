@@ -13,7 +13,9 @@ flask-uploads = "*"
 marshmallow = "*"
 marshmallow-sqlalchemy = "*"
 requests = "*"
+psycopg2-binary = "*"
 python-dotenv = "*"
+Werkzeug = "0.16.1"
 
 [dev-packages]
 
